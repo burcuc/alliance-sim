@@ -239,7 +239,9 @@
   NS_LOG_CONDITION                                              \
   do                                    \
     {                                   \
-      std::clog << msg << std::endl;    \
+      ns3::LogTimePrinter printer = ns3::LogGetTimePrinter ();  \
+      (*printer)(std::clog); \
+      std::clog << " " << msg << std::endl;    \
     }                                   \
   while (false)
 
