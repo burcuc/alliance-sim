@@ -150,6 +150,8 @@ TopDownHierModel::TopDownHierModel(TopDownPar* par) : models(2) {
     cerr << "Invalid model type for TD model...\n" << flush;
     assert(0);
   }
+  models[1]->SetX_max(models[0]->GetScale());
+  models[1]->SetY_max(models[0]->GetScale());
 }
 
 
@@ -233,8 +235,10 @@ Graph* TopDownHierModel::Generate() {
   try {
 
     for (int i = 0; i < graph->GetNumNodes(); i++) {
-      cout << "Generating " << i + 1 << "th Router/level topology...\n" << flush;
       assert(graph->GetNodePtr(i)->GetNodeInfo()->GetNodeType() == NodeConf::AS_NODE);
+      models[1]->SetX(graph->GetNodePtr(i)->GetNodeInfo()->GetCoordX());
+			models[1]->SetY(graph->GetNodePtr(i)->GetNodeInfo()->GetCoordY());
+			cout << "Generating " << i + 1 << "th Router/level topology for " << models[1]->GetX() << "," << models[1]->GetY() << "...\n" << flush;			
       Topology* new_topology = new Topology(models[1]);
       assert(new_topology != NULL);
       assert(new_topology->IsConnected());

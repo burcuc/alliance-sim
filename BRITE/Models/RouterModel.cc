@@ -83,6 +83,13 @@ void RouterModel::PlaceNodes(Graph* g) {
   RandomVariable U(s_places);
 
   int n  = size;
+  int space_to_the_right = (X < Scale_1/2) ? (Scale_1 - X + 1) : ((X_max - X < Scale_1/2) ? (X_max - X - 1): (Scale_1/2));
+  int space_to_the_left = Scale_1 - space_to_the_right;
+  int space_to_top = (Y < Scale_1/2) ? (Scale_1 - Y + 1) : ((Y_max - Y < Scale_1/2) ? (Y_max - Y - 1): (Scale_1/2));
+  int space_to_bottom = Scale_1 - space_to_top;
+  
+  cout << "to left: " << space_to_the_left << endl << "to right: " << space_to_the_right << endl << "to top: " << space_to_top << endl << "to bottom: " << space_to_bottom << endl;
+  
   switch (GetPlacementType()) {
 
   case P_RANDOM: /* Random Node placement */
@@ -133,7 +140,7 @@ void RouterModel::PlaceNodes(Graph* g) {
 
   case P_HT:  /* NodePlacement == HEAVY TAILED */
 
-    cout << "HT Node placement...\n" << flush;
+	cout << "HT Node placement " << n << " " << size << "...\n" << flush;
     num_squares = (int)floor(Scale_1/Scale_2);
     num_placed = 0;
     while (num_placed < n) {
@@ -150,8 +157,8 @@ void RouterModel::PlaceNodes(Graph* g) {
 	    do {
 
 	       /* Pick random location in proper square*/
-	       x = (int)floor(U.GetValUniform((double)Scale_2) + j*Scale_2);
-	       y = (int)floor(U.GetValUniform((double)Scale_2) + i*Scale_2);
+		   x = X + (int)floor(U.GetValUniform((double)Scale_2) + j*Scale_2) - space_to_the_left;
+		   y = Y + (int)floor(U.GetValUniform((double)Scale_2) + i*Scale_2) - space_to_bottom;
 	       /* 3rd dimension disabled for now */
 	       z = 0; 
 	       /* Check for Placement Collision */       

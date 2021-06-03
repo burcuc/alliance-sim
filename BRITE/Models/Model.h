@@ -91,7 +91,16 @@ class Model {
   int GetGrowthType() { return Growth; }
   int GetPrefType() { return PrefConn; }
   int GetConnLocType() { return ConnLoc; }
-  int GetSize() { return size; }
+  int GetSize() { return size; }  
+  int GetScale() { return Scale_1; }
+  int GetX() { return X; }
+  int GetY() { return Y; }
+  int GetX_max() { return X_max; }
+  int GetY_max() { return Y_max; } 
+  void SetX(int x) {  X=x; }
+  void SetY(int y) { Y=y; }
+  void SetX_max(int x) {  X_max=x; }
+  void SetY_max(int y) { Y_max=y; }
   ModelType GetType() { return type; }
   int GetMEdges() { return m_edges; }
   std::string ToString();
@@ -114,6 +123,10 @@ class Model {
   ModelType type;
   int Scale_1;
   int Scale_2;
+  int X;
+  int Y;
+  int X_max;
+  int Y_max;  
   int m_edges;
   int size;
   static std::vector<PlaneRowAdjNode*> row_ocup;
