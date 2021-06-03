@@ -98,6 +98,7 @@ void
 BriteTopologyHelper::BuildBriteNodeInfoList (void)
 {
   NS_LOG_FUNCTION (this);
+  std::cout << "BuildBriteNodeInfoList: 1.1" << std::endl;
   brite::Graph *g = m_topology->GetGraph ();
   for (int i = 0; i < g->GetNumNodes (); ++i)
     {
@@ -187,6 +188,8 @@ BriteTopologyHelper::BuildBriteEdgeInfoList (void)
   std::list<brite::Edge*>::iterator el;
   std::list<brite::Edge*> edgeList = g->GetEdges ();
 
+  std::cout << "BuildBriteEdgeInfoList: 1.2" << std::endl;
+
   for (el = edgeList.begin (); el != edgeList.end (); el++)
     {
       BriteEdgeInfo edgeInfo;
@@ -210,6 +213,7 @@ BriteTopologyHelper::BuildBriteEdgeInfoList (void)
           edgeInfo.bandwidth = (*el)->GetConf ()->GetBW ();
           edgeInfo.asFrom = ((brite::ASNodeConf*)((*el)->GetSrc ()->GetNodeInfo ()))->GetASId ();
           edgeInfo.asTo = ((brite::ASNodeConf*)((*el)->GetDst ()->GetNodeInfo ()))->GetASId ();
+          std::cout << "AS_EDGE: " << edgeInfo.type << " " << edgeInfo.length << " " << edgeInfo.asFrom << " " << edgeInfo.asTo << " " << edgeInfo.bandwidth << " " << edgeInfo.srcId << " " << edgeInfo.delay << std::endl;
           break;
 
         default:
@@ -321,6 +325,8 @@ void BriteTopologyHelper::GenerateBriteTopology (void)
 
   //check to see if need to generate seed file
   bool generateSeedFile = m_seedFile.empty ();
+
+  std::cout << "GenerateBriteTopology: 1" << std::endl;
 
   if (generateSeedFile)
     {
@@ -451,6 +457,8 @@ BriteTopologyHelper::ConstructTopology ()
       m_nodesByAs.push_back (new NodeContainer ());
     }
 
+  std::cout << "ConstructTopology: 2" << std::endl;
+  
   for (BriteTopologyHelper::BriteEdgeInfoList::iterator it = m_briteEdgeInfoList.begin (); it != m_briteEdgeInfoList.end (); ++it)
     {
       // Set the link delay
