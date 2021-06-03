@@ -1,0 +1,11 @@
+*.o
+*.so
+*.pyc
+*.txt
+ns-3.29/last_seed_file
+*.txt
+*.lock*
+*.pcap
+*.waf-2.0.9*
+ns-3.29/build/*
+ns-3.29/*results*/
